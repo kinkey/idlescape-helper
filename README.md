@@ -7,6 +7,9 @@ How to run:
 - Navigate to the `/chrome_extension` folder and load that in
 - Refresh Idlescape and now you can see two buttons at the top.
 
+Features :
+- Disable sell button from all items. This can be disabled only by refreshing the browser.
+- Enable a beep every 10s when less than 3 pieces of food in the inventory. The combat inventory needs to be in focus for this to work.
 
 v 0.0.1 -- 
 added extension, added a Disable sell button which loads on page load
