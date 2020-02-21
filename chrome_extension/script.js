@@ -62,7 +62,7 @@ function activateSound(){
         enableSoundNotification.innerHTML = soundDisableInnerHtml;
     } else {
         soundEnabled = true;
-        alert('Beeping enabled. Please refresh page to disable it.');
+        alert('Beeping enabled. Please click this button again to disable it.');
         enableSoundNotification.innerHTML = "<button>BEEPING ENABLED</button>";
         beepInterval =setInterval(noFood, 10000);
     }
