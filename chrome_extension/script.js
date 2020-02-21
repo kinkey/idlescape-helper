@@ -10,13 +10,14 @@ addStyle(".navbar1", "grid-template-columns: 1fr 1fr 1fr .2fr .2fr .5fr .5fr .6f
 
 let sellDisabled = false;
 
+let soundDisableInnerHtml = '<button class=\"new-buttons enable-sound-notification\">Enable No Food Beep</button>';
 
 let disableSellButtonContainer = document.createElement('div');
 disableSellButtonContainer.innerHTML = "<button class=\"new-buttons disable-sell-button\">Disable Sell</button>";
 document.getElementsByClassName('navbar1')[0].appendChild(disableSellButtonContainer);
 
 let enableSoundNotification = document.createElement('div');
-enableSoundNotification.innerHTML = "<button class=\"new-buttons enable-sound-notification\">Enable No Food Beep</button>";
+enableSoundNotification.innerHTML = soundDisableInnerHtml;
 document.getElementsByClassName('navbar1')[0].appendChild(enableSoundNotification);
 
 let disableSellButton = function () {
@@ -52,15 +53,18 @@ let noFood = function() {
         beep(15, 550, 100);
     }
 }
-
+let beepInterval;
 function activateSound(){
     if (soundEnabled) {
-        alert('Beeping when low on fish is already enabled. To disable refresh page.');
+        soundEnabled = false;
+        alert('Disabling beeping.');
+        clearInterval(beepInterval);
+        enableSoundNotification.innerHTML = soundDisableInnerHtml;
     } else {
         soundEnabled = true;
-        enableSoundNotification.innerHTML = "BEEPING ENABLED";
-        setInterval(noFood, 15000);
         alert('Beeping enabled. Please refresh page to disable it.');
+        enableSoundNotification.innerHTML = "<button>BEEPING ENABLED</button>";
+        beepInterval =setInterval(noFood, 15000);
     }
 
 }
