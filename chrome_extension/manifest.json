@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+  
+    "name": "Idlescape Helper",
+    "description": "Idlescape Helper",
+    "version": "0.1",
+  
+
+    "content_scripts": [
+      {
+        "run_at": "document_idle",
+        "matches": ["https://idlescape.com/game"],
+        "js": ["disableSell.js"]
+      }
+    ],
+  
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  
+    "browser_action": {
+        "default_title": "Idlescape Helper",
+        "default_popup": "index.html"
+    },
+    "permissions": [
+        "activeTab",
+        "<all_urls>"
+    ]
+  }
