@@ -10,7 +10,7 @@
       {
         "run_at": "document_idle",
         "matches": ["https://idlescape.com/game"],
-        "js": ["disableSell.js"]
+        "js": ["script.js"]
       }
     ],
   
