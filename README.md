@@ -9,3 +9,5 @@ How to run:
 
 v 0.0.1 -- 
 added extension, added a Disable sell button which loads on page load
+v 0.0.2 -- 
+added a new button. allows for hearing when you're running very low on food
