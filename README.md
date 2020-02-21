@@ -1,9 +1,10 @@
 How to run:
 
+- Download the archive that contains this folder.
 - Go to: `chrome://extensions/`
 - Enable Developer Mode in the top right
 - Click on `Load unpacked`
-- Navigate toe the `/chrome_extension` folder and load that in
+- Navigate to the `/chrome_extension` folder and load that in
 - Click on the extension in IdleScape and open the console (for now!)
 
 
