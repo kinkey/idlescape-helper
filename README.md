@@ -5,7 +5,7 @@ How to run:
 - Enable Developer Mode in the top right
 - Click on `Load unpacked`
 - Navigate to the `/chrome_extension` folder and load that in
-- Click on the extension in IdleScape and open the console (for now!)
+- Refresh Idlescape and now you can see two buttons at the top.
 
 
 v 0.0.1 -- 
