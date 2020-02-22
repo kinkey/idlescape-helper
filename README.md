@@ -19,3 +19,9 @@ added a new button. allows for hearing when you're running very low on food
 
 v 0.0.3 -- 
 allow for toggling of beeping.
+
+v 0.0.4 --
+make sure that domain reading is correct
+
+v 0.0.5 --
+add missing resource beep (heat/no ore/fish)

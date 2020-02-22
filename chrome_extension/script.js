@@ -9,19 +9,41 @@ function addStyle(selector, style) {
         }
     }
 }
-addStyle(".navbar1", "grid-template-columns: 1fr 1fr 1fr .2fr .2fr .5fr .5fr .6fr");
 
+let navBar = 'navbar1';
 let sellDisabled = false;
+let noFoodSoundEnabled = false;
+let noResourceSoundEnabled = false;
 
-let soundDisableInnerHtml = '<button class=\"new-buttons enable-sound-notification\">Enable No Food Beep</button>';
+let audioContext;
+
+let foodBeepInterval;
+let resourceBeepInterval;
+
+
+addStyle(navBar, "grid-template-columns: 1fr 1fr 1fr .2fr .2fr .4fr .4fr .3fr .3fr .2fr");
+
+let sellDisableInnerHtml = '<button class=\"new-buttons disable-sell-button\">Disable Sell</button>';
+let foodSoundEnableInnerHtml = '<button class=\"new-buttons enable-sound-notification\">Enable No Food Beep</button>';
+let resNotifInnerHtml = '<button class=\"new-buttons resources-notification-button\">Enable Missing Resource Beep</button>';
+let newGoldInnerHtml = '<button class=\"new-buttons gold-gained-button\">Enable Gold Gain Beep</button>';
+
 
 let disableSellButtonContainer = document.createElement('div');
-disableSellButtonContainer.innerHTML = "<button class=\"new-buttons disable-sell-button\">Disable Sell</button>";
-document.getElementsByClassName('navbar1')[0].appendChild(disableSellButtonContainer);
+disableSellButtonContainer.innerHTML = sellDisableInnerHtml;
+document.getElementsByClassName(navBar)[0].appendChild(disableSellButtonContainer);
 
-let enableSoundNotification = document.createElement('div');
-enableSoundNotification.innerHTML = soundDisableInnerHtml;
-document.getElementsByClassName('navbar1')[0].appendChild(enableSoundNotification);
+let enableSoundNoFood = document.createElement('div');
+enableSoundNoFood.innerHTML = foodSoundEnableInnerHtml;
+document.getElementsByClassName(navBar)[0].appendChild(enableSoundNoFood);
+
+let enableSoundNoResource = document.createElement('div');
+enableSoundNoResource.innerHTML = resNotifInnerHtml;
+document.getElementsByClassName(navBar)[0].appendChild(enableSoundNoResource);
+
+let goldGainNotification = document.createElement('div');
+goldGainNotification.innerHTML = newGoldInnerHtml;
+document.getElementsByClassName(navBar)[0].appendChild(goldGainNotification);
 
 let disableSellButton = function () {
     if (sellDisabled) {
@@ -33,10 +55,6 @@ let disableSellButton = function () {
         alert('Sell Button disabled. Please refresh page to enable it again');
     }
 };
-
-let soundEnabled = false;
-
-let audioContext;
 
 function beep(vol, freq, duration) {
     let oscillator = audioContext.createOscillator();
@@ -50,29 +68,67 @@ function beep(vol, freq, duration) {
     oscillator.stop(audioContext.currentTime + duration * 0.001)
 }
 
-let noFood = function() {
+let noFood = function () {
     let emptySlots = document.querySelectorAll('.combat-empty-slot').length;
     if (emptySlots >= 25) {
         console.log("beeping");
         beep(15, 550, 100);
     }
-}
-let beepInterval;
-function activateSound(){
-    if (soundEnabled) {
-        soundEnabled = false;
-        alert('Disabling beeping.');
-        clearInterval(beepInterval);
-        enableSoundNotification.innerHTML = soundDisableInnerHtml;
+};
+
+let noResource = function () {
+    let heatElement = document.getElementById("heat");
+
+    let heatValue;
+    if (heatElement.innerHTML.includes('K')) {
+        heatValue = parseInt(heat.innerHTML) * 1000;
+    } else if (heat.innerHTML.includes('M')) {
+        heatValue = parseInt(heat.innerHTML) * 1000000;
     } else {
-        audioContext = new AudioContext();
-        soundEnabled = true;
-        alert('Beeping enabled. Please click this button again to disable it.');
-        enableSoundNotification.innerHTML = "<button>BEEPING ENABLED</button>";
-        beepInterval = setInterval(noFood, 10000);
+        heatValue = parseInt(heat.innerHTML);
     }
 
+    var isPresentationPresent = document.querySelectorAll('div[role="presentation"]').length > 0 ? true : false;
+
+    if (heatValue < 1000 || isPresentationPresent) {
+        beep(20, 350, 1500);
+    }
+};
+
+function activateFoodMissingSound() {
+    if (noFoodSoundEnabled) {
+        noFoodSoundEnabled = false;
+        alert('Disabling beeping.');
+        clearInterval(foodBeepInterval);
+        enableSoundNoFood.innerHTML = foodSoundEnableInnerHtml;
+    } else {
+        if(audioContext == null) {
+            audioContext = new AudioContext();
+    }
+        noFoodSoundEnabled = true;
+        alert('Beeping enabled. Please click this button again to disable it.');
+        enableSoundNoFood.innerHTML = "<button>Food Beep ENABLED</button>";
+        foodBeepInterval = setInterval(noFood, 10000);
+    }
+}
+
+function activateResourceMissingSound() {
+    if (noResourceSoundEnabled) {
+        noResourceSoundEnabled = false;
+        alert('Disabling beeping.');
+        clearInterval(resourceBeepInterval);
+        enableSoundNoResource.innerHTML = resNotifInnerHtml;
+    } else {
+        if(audioContext == null) {
+            audioContext = new AudioContext();
+        }
+        noResourceSoundEnabled = true;
+        alert('Beeping enabled. Please click this button again to disable it.');
+        enableSoundNoResource.innerHTML = "<button>Resource Beep ENABLED</button>";
+        resourceBeepInterval = setInterval(noResource, 20000);
+    }
 }
 
 disableSellButtonContainer.addEventListener('click', disableSellButton, false);
-enableSoundNotification.addEventListener('click', activateSound, false);
+enableSoundNoFood.addEventListener('click', activateFoodMissingSound, false);
+enableSoundNoResource.addEventListener('click', activateResourceMissingSound, false);

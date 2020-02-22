@@ -3,7 +3,7 @@
   
     "name": "Idlescape Helper",
     "description": "Idlescape Helper",
-    "version": "0.3",
+    "version": "0.5",
   
 
     "content_scripts": [
