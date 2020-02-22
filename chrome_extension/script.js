@@ -36,7 +36,7 @@ let disableSellButton = function () {
 
 let soundEnabled = false;
 
-const audioContext = new AudioContext();
+let audioContext;
 
 function beep(vol, freq, duration) {
     let oscillator = audioContext.createOscillator();
@@ -53,6 +53,7 @@ function beep(vol, freq, duration) {
 let noFood = function() {
     let emptySlots = document.querySelectorAll('.combat-empty-slot').length;
     if (emptySlots >= 25) {
+        console.log("beeping");
         beep(15, 550, 100);
     }
 }
@@ -64,10 +65,11 @@ function activateSound(){
         clearInterval(beepInterval);
         enableSoundNotification.innerHTML = soundDisableInnerHtml;
     } else {
+        audioContext = new AudioContext();
         soundEnabled = true;
         alert('Beeping enabled. Please click this button again to disable it.');
         enableSoundNotification.innerHTML = "<button>BEEPING ENABLED</button>";
-        beepInterval =setInterval(noFood, 10000);
+        beepInterval = setInterval(noFood, 10000);
     }
 
 }
