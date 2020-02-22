@@ -2,7 +2,8 @@ function addStyle(selector, style) {
     let styles = document.styleSheets;
     let url = window.location.href;
     let urlPattern = url.substring(0, url.length - 4) + "static/css/main";
-    for (i = 0; i < styles.length; i++) {
+
+    for (let i = 0; i < styles.length; i++) {
         if ((!!styles[i].href) && styles[i].href.includes(urlPattern)) {
             styles[i].addRule(selector, style, styles[i].rules.length);
         }
