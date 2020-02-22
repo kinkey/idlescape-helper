@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Idlescape Helper
 // @namespace
-// @version      1.0.0
+// @version      1.0.1
 // @description  A gathering of QoL features to help players.
 // @author       kinks
 // @homepageURL  https://github.com/kinkey/idlescape-helper
@@ -21,6 +21,18 @@ function addStyle(selector, style) {
         }
     }
 }
+
+function updateTitleBar() {
+    let title = document.querySelector('.skill-levels-total-combat .status-action div').innerText.replace('Status: ', '')
+
+    if (title === 'Idling') {
+        title = '!!! IDLING !!!';
+    }
+
+    document.title = '[> ' + title + ' <]';
+}
+
+setInterval(updateTitleBar, 3000);
 
 let navBar = 'navbar1';
 let sellDisabled = false;
