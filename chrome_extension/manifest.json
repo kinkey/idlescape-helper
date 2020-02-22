@@ -9,7 +9,7 @@
     "content_scripts": [
       {
         "run_at": "document_idle",
-        "matches": ["https://idlescape.com/game"],
+        "matches": ["https://idlescape.com/game", "https://www.idlescape.com/game"],
         "js": ["script.js"]
       }
     ],
@@ -22,6 +22,6 @@
     },
     "permissions": [
         "activeTab",
-        "https://idlescape.com/game"
+        "<all_urls>"
     ]
   }
