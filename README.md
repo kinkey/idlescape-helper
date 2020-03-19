@@ -11,7 +11,7 @@ OR
 - Install TamperMonkey (https://www.tampermonkey.net/)
 - Open TamperMonkey Dashboard
 - Select Utilities
-- Install from URL https://raw.githubusercontent.com/1e4/idlescape/master/idlescape.js
+- Install from URL https://github.com/kinkey/idlescape-helper/blob/master/idlescape-helper.js
 - Click Install
 - Refresh Idlescape to load the script
 
